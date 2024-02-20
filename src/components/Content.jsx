@@ -2,7 +2,7 @@ import React from 'react'
 
 function Content() {
   return (
-    <div className='bg-orange-500 w-[100%]'>Content</div>
+    <div className='bg-black text-white w-[100%]'>Content</div>
   )
 }
 
