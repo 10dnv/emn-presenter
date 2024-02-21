@@ -22,10 +22,13 @@ function Service() {
 
   function handleAddService(ev){
     const name = document.getElementById("modal-input-name");
+    const err = document.getElementById("new_service_modal_err_placeholder");
     if (name.value !== ''){
       setCurrentService({...currentService, title:name.value, empty:false});
       name.value='';
+      err.innerHTML = '';
     }else{
+      err.innerHTML = "Cannot be empty!"
       ev.preventDefault();
     }
   }
@@ -39,6 +42,7 @@ function Service() {
             <h3 className="font-bold text-lg">Create new service</h3>
             <input id="modal-input-name" type="text" placeholder="Choose a name" className="input input-bordered w-full max-w-xs" />
 
+            <p id='new_service_modal_err_placeholder' className='text-red-600'></p>
             <div className="modal-action">
               <form method="dialog" onSubmit={handleAddService}>
                 {/* if there is a button in form, it will close the modal */}
