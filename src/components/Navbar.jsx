@@ -20,7 +20,7 @@ function Navbar() {
   });
 
   return (
-    <div className='bg-black text-white text-2xl h-16 border-b-2 border-orange-600 flex justify-between items-center px-3'>
+    <div className='bg-black text-white text-2xl h-16 border-b border-orange-600 flex justify-between items-center px-3'>
       <Link to="/">
         <Logo/>
       </Link>
@@ -45,13 +45,13 @@ function Navbar() {
           <IoSettingsSharp title='Settings' className='hover:text-orange-600'/>
         </Link>
         
-        <details class="dropdown">
+        <details className="dropdown">
           <summary className='flex items-center space-x-1 hover:text-orange-600'>
             <MdAccountCircle title='Account'className=''/>
             <span className='text-sm hidden lg:block '>bisericaemanuelorg@gmail.com</span>
           </summary>
-          <ul className=" my-3 w-auto -mx-[25%] p-2 bg-base-100 rounded-t-none absolute text-sm border border-orange-400 bg-black text-center lg:mx-10">
-            <li className='hover:bg-orange-600'> <Link to="/account">Manage account</Link></li>
+          <ul className=" my-3 w-auto -mx-[25%] p-2 bg-base-100 rounded-t-none absolute text-sm border border-[#292524] bg-black text-center lg:mx-10">
+            <li className='hover:bg-orange-600 border-b border-b-[#292524]'> <Link to="/account">Manage account</Link></li>
             <li className='hover:bg-orange-600'><a>Logout</a></li>
           </ul>
         </details>
