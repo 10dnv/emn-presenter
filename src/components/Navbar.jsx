@@ -25,7 +25,7 @@ function Navbar() {
         <Logo/>
       </Link>
 
-      <span id='middle-section' className='flex space-x-24 text-3xl'>
+      <span id='middle-section' className='flex md:space-x-24 text-3xl'>
         <Link to="/search">
           <FaSearch className=' hover:text-orange-600' title='Search'/>
         </Link>
@@ -48,9 +48,9 @@ function Navbar() {
         <details class="dropdown">
           <summary className='flex items-center space-x-1 hover:text-orange-600'>
             <MdAccountCircle title='Account'className=''/>
-            <p className='text-sm'>bisericaemanuelorg@gmail.com</p>
+            <span className='text-sm hidden lg:block '>bisericaemanuelorg@gmail.com</span>
           </summary>
-          <ul className=" my-3 w-[30vh] p-2 bg-base-100 rounded-t-none absolute text-sm border border-orange-400 bg-black text-center">
+          <ul className=" my-3 w-auto -mx-[25%] p-2 bg-base-100 rounded-t-none absolute text-sm border border-orange-400 bg-black text-center lg:mx-10">
             <li className='hover:bg-orange-600'> <Link to="/account">Manage account</Link></li>
             <li className='hover:bg-orange-600'><a>Logout</a></li>
           </ul>
