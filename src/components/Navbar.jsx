@@ -8,6 +8,17 @@ import { MdAccountCircle } from "react-icons/md";
 import { MdMonitor } from "react-icons/md";
 
 function Navbar() {
+
+  // Close the detail dropdown when clicked outside
+  window.addEventListener('click', function(e) {
+    document.querySelectorAll('.dropdown').forEach(function(dropdown) {
+      if (!dropdown.contains(e.target)) {
+        // Click was outside the dropdown, close it
+        dropdown.open = false;
+      }
+    });
+  });
+
   return (
     <div className='bg-black text-white text-2xl h-16 border-b-2 border-orange-600 flex justify-between items-center px-3'>
       <Link to="/">
@@ -29,17 +40,22 @@ function Navbar() {
       </span>
 
      
-      <span id="right-section" className='flex space-x-4 text-3xl'>
+      <span id="right-section" className='flex space-x-4 text-3xl items-center'>
         <Link to="/settings">
           <IoSettingsSharp title='Settings' className='hover:text-orange-600'/>
         </Link>
         
-        <Link to="/account">
-          <span className='flex items-center space-x-1 hover:text-orange-600'>
-              <MdAccountCircle title='Account'className=''/>
-              <p className='text-sm'>bisericaemanuelorg@gmail.com</p>
-          </span>
-        </Link>
+        <details class="dropdown">
+          <summary className='flex items-center space-x-1 hover:text-orange-600'>
+            <MdAccountCircle title='Account'className=''/>
+            <p className='text-sm'>bisericaemanuelorg@gmail.com</p>
+          </summary>
+          <ul className=" my-3 w-[30vh] p-2 bg-base-100 rounded-t-none absolute text-sm border border-orange-400 bg-black text-center">
+            <li className='hover:bg-orange-600'> <Link to="/account">Manage account</Link></li>
+            <li className='hover:bg-orange-600'><a>Logout</a></li>
+          </ul>
+        </details>
+
       </span>
 
     </div>
