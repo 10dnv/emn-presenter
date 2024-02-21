@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FaPlus, FaFolderOpen, FaEdit, FaTrash } from "react-icons/fa";
+import { FaPlus, FaFolderOpen, FaEdit, FaTrash, FaSave } from "react-icons/fa";
 import { MdAddBox, MdEditNote, MdOutlinePlaylistRemove } from "react-icons/md";
 
 function Service() {
@@ -47,6 +47,9 @@ function Service() {
       setCurrentService({...currentService, title:name.value, empty:false});
       name.value='';
       err.innerHTML = '';
+      document.getElementById("edit_service").classList.remove("feature-disabled")
+      document.getElementById("remove_service").classList.remove("feature-disabled")
+      document.getElementById("add_service").classList.add("feature-disabled")
     }else{
       err.innerHTML = "Cannot be empty!"
       ev.preventDefault();
@@ -68,6 +71,9 @@ function Service() {
   }
   function handleRemoveService(){
     setCurrentService(empty_service);
+    document.getElementById("edit_service").classList.add("feature-disabled")
+    document.getElementById("remove_service").classList.add("feature-disabled")
+    document.getElementById("add_service").classList.remove("feature-disabled")
   }
 
   return (
@@ -122,10 +128,11 @@ function Service() {
 
 
         <div id="service-buttons" className='text-md font-bold  p-2 mx-auto  w-[100%]  text-center border-b border-b-[#391a0e] flex justify-around bg-[#292524]'>
-            <FaPlus size={20} className='hover:text-orange-600' onClick={()=>handleOpenServiceModal()}/>
-            <FaFolderOpen size={20} className='hover:text-orange-600' />
-            <FaEdit size={20} className='hover:text-orange-600' onClick={()=>handleEditServiceModal()}/>
-            <FaTrash size={20} className='hover:text-orange-600'onClick={()=>handleEmptyServiceModal()}/>
+            <FaPlus id="add_service" size={20} className='hover:text-orange-600' onClick={()=>handleOpenServiceModal()}/>
+            <FaFolderOpen size={20} className='hover:text-orange-600 feature-disabled' />
+            <FaEdit id="edit_service" size={20} className='hover:text-orange-600 feature-disabled' onClick={()=>handleEditServiceModal()}/>
+            <FaTrash id="remove_service" size={20} className='hover:text-orange-600 feature-disabled'onClick={()=>handleEmptyServiceModal()}/>
+            <FaSave id="save_service" size={20} className='hover:text-orange-600 feature-disabled'/>
         </div>
 
         <div id="list-items" className='h-[90%]'>

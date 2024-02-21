@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.feature-disabled{
+  color:grey;
+  opacity: 45%;
+}
+
+.feature-disabled:hover{
+  color:grey;
+}
