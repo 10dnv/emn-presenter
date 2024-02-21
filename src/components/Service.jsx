@@ -105,7 +105,7 @@ function Service() {
         </dialog>
 
 
-        <dialog id="empty_service_modal" className="modal">
+        <dialog id="edit_service_modal" className="modal">
           <div className="modal-box flex flex-col items-center justify-between gap-2">
             <h3 className="font-bold text-lg">Edit service</h3>
             <input id="modal-input-name-edit" type="text" placeholder="Choose a name" className="input input-bordered w-full max-w-xs " />
