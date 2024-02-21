@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { FaPlus, FaFolderOpen, FaEdit } from "react-icons/fa";
+import { FaPlus, FaFolderOpen, FaEdit, FaTrash } from "react-icons/fa";
 import { MdAddBox, MdEditNote, MdOutlinePlaylistRemove } from "react-icons/md";
 
 function Service() {
-  const [currentService, setCurrentService] =useState({
+  
+  const empty_service = {
     title:"No service",
     empty:true,
     creation_date:null,
@@ -13,15 +14,34 @@ function Service() {
       type:'lyrics',
       title:"Item 1",
       content:''
-  }]
-  });
+    }]
+  };
+  
+  const [currentService, setCurrentService] =useState(empty_service);
 
   function handleOpenServiceModal(){
-    document.getElementById('new_service_modal').showModal();
+    if (currentService.empty === true)
+    {
+      document.getElementById('new_service_modal').showModal();
+    }
+  }
+
+  function handleEditServiceModal(){
+    if (currentService.empty === false)
+    {
+      document.getElementById('edit_service_modal').showModal();
+    }
+  }
+
+  function handleEmptyServiceModal(){
+    if (currentService.empty === false)
+    {
+      document.getElementById('remove_service_modal').showModal();
+    }
   }
 
   function handleAddService(ev){
-    const name = document.getElementById("modal-input-name");
+    const name = document.getElementById("modal-input-name-new");
     const err = document.getElementById("new_service_modal_err_placeholder");
     if (name.value !== ''){
       setCurrentService({...currentService, title:name.value, empty:false});
@@ -33,6 +53,23 @@ function Service() {
     }
   }
 
+
+  function handleEditService(ev){
+    const name = document.getElementById("modal-input-name-edit");
+    const err = document.getElementById("new_service_modal_err_placeholder");
+    if (name.value !== ''){
+      setCurrentService({...currentService, title:name.value, empty:false});
+      name.value='';
+      err.innerHTML = '';
+    }else{
+      err.innerHTML = "Cannot be empty!"
+      ev.preventDefault();
+    }
+  }
+  function handleRemoveService(){
+    setCurrentService(empty_service);
+  }
+
   return (
     <div className='bg-black border-r border-orange-600 text-white h-[100%] w-[30%] flex flex-col '>
         <span className='text-md font-bold  p-2 mx-auto bg-[#292524] w-[100%]  text-center '>{currentService.title}</span>
@@ -40,7 +77,7 @@ function Service() {
         <dialog id="new_service_modal" className="modal">
           <div className="modal-box flex flex-col items-center justify-between gap-2">
             <h3 className="font-bold text-lg">Create new service</h3>
-            <input id="modal-input-name" type="text" placeholder="Choose a name" className="input input-bordered w-full max-w-xs" />
+            <input id="modal-input-name-new" type="text" placeholder="Choose a name" className="input input-bordered w-full max-w-xs " />
 
             <p id='new_service_modal_err_placeholder' className='text-red-600'></p>
             <div className="modal-action">
@@ -52,10 +89,43 @@ function Service() {
           </div>
         </dialog>
 
+
+        <dialog id="remove_service_modal" className="modal">
+          <div className="modal-box flex flex-col items-center justify-between gap-2">
+            <h3 className="font-bold text-lg">Are you sure you want to delete <span className='text-orange-600'>{currentService.title}</span>?</h3>
+
+            <div className="modal-action">
+              <form method="dialog"  >
+                {/* if there is a button in form, it will close the modal */}
+                <button id="btn-remove-yes" className="btn mx-5" onClick={()=>handleRemoveService()} >YES</button>
+                <button id="btn-remove-no" className="btn " >NO</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+
+
+        <dialog id="empty_service_modal" className="modal">
+          <div className="modal-box flex flex-col items-center justify-between gap-2">
+            <h3 className="font-bold text-lg">Edit service</h3>
+            <input id="modal-input-name-edit" type="text" placeholder="Choose a name" className="input input-bordered w-full max-w-xs " />
+
+            <p id='edit_service_modal_err_placeholder' className='text-red-600'></p>
+            <div className="modal-action">
+              <form method="dialog" onSubmit={handleEditService}>
+                {/* if there is a button in form, it will close the modal */}
+                <button className="btn" type='submit' >Update</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+
+
         <div id="service-buttons" className='text-md font-bold  p-2 mx-auto  w-[100%]  text-center border-b border-b-[#391a0e] flex justify-around bg-[#292524]'>
             <FaPlus size={20} className='hover:text-orange-600' onClick={()=>handleOpenServiceModal()}/>
             <FaFolderOpen size={20} className='hover:text-orange-600' />
-            <FaEdit size={20} className='hover:text-orange-600' />
+            <FaEdit size={20} className='hover:text-orange-600' onClick={()=>handleEditServiceModal()}/>
+            <FaTrash size={20} className='hover:text-orange-600'onClick={()=>handleEmptyServiceModal()}/>
         </div>
 
         <div id="list-items" className='h-[90%]'>
