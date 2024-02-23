@@ -50,7 +50,7 @@ function Navbar() {
             <MdAccountCircle title='Account'className=''/>
             <span className='text-sm hidden lg:block '>bisericaemanuelorg@gmail.com</span>
           </summary>
-          <ul className=" my-3 w-auto -mx-[25%] p-2 bg-base-100 rounded-t-none absolute text-sm border border-[#292524] bg-black text-center lg:mx-10">
+          <ul className=" my-3 w-auto -mx-[25%] p-2 bg-base-100 rounded-t-none absolute text-sm border border-[#292524]  text-center lg:mx-10">
             <li className='hover:bg-orange-600 border-b border-b-[#292524]'> <Link to="/account">Manage account</Link></li>
             <li className='hover:bg-orange-600'><a>Logout</a></li>
           </ul>

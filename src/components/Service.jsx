@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaPlus, FaFolderOpen, FaEdit, FaTrash, FaSave } from "react-icons/fa";
 import { MdAddBox, MdEditNote, MdOutlinePlaylistRemove } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
+import CurrentServiceContext from '../context/ServiceContext'
 
 function Service() {
   
+  const navigate = useNavigate();
+
   const empty_service = {
     title:"No service",
     empty:true,
@@ -17,7 +21,11 @@ function Service() {
     }]
   };
   
-  const [currentService, setCurrentService] =useState(empty_service);
+  const {currentService, setCurrentService} = useContext(CurrentServiceContext);
+  
+  useEffect(() => {
+    setCurrentService(empty_service);
+  }, []) 
 
   function handleOpenServiceModal(){
     if (currentService.empty === true)
@@ -74,6 +82,16 @@ function Service() {
     document.getElementById("edit_service").classList.add("feature-disabled")
     document.getElementById("remove_service").classList.add("feature-disabled")
     document.getElementById("add_service").classList.remove("feature-disabled")
+  }
+
+  function handleAddServiceItem(){
+    navigate("/add-item");
+  }
+  function handleEditServiceItem(){
+
+  }
+  function handleRemoveServiceItem(){
+
   }
 
   return (
@@ -142,7 +160,7 @@ function Service() {
 
 
         <div id="service-items-buttons" className={!currentService.empty?"flex justify-between p-2 flex-grow-0 bg-[#292524]":"hidden"}>
-                <div className='flex items-center hover:text-green-500 cursor-pointer' onClick={'a'}>
+                <div className='flex items-center hover:text-green-500 cursor-pointer' onClick={handleAddServiceItem}>
                     <MdAddBox size={30}/>
                     <span> Add </span>
                 </div>
