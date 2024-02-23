@@ -1,8 +1,18 @@
 import {React, useContext} from 'react'
 import CurrentServiceContext from '../context/ServiceContext'
+import { useNavigate } from 'react-router-dom';
 
 function AddItem() {
+    const navigate = useNavigate();
     const {currentService, setCurrentService} = useContext(CurrentServiceContext);
+
+    // Prevent adding item if list is empty
+    if(currentService.empty)
+    {
+        return <div className='bg-black text-white w-[100%] flex flex-col items-center'></div>
+        // To be replaced by homescreen
+    }
+
   return (
     <div className='bg-black text-white w-[100%] flex flex-col items-center'>
         <div id ="content-title" className=' mt-[10%]'>
