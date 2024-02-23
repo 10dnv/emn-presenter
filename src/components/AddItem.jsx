@@ -1,11 +1,16 @@
 import {React, useContext} from 'react'
 import CurrentServiceContext from '../context/ServiceContext'
 import { useNavigate } from 'react-router-dom';
+import { MdOutlineLyrics } from "react-icons/md";
+import { RiSlideshow2Fill } from "react-icons/ri";
 
 function AddItem() {
     const navigate = useNavigate();
     const {currentService, setCurrentService} = useContext(CurrentServiceContext);
 
+    function handleAddLyricsItem(){
+        navigate("/add-item/lyrics");
+      }
     // Prevent adding item if list is empty
     if(currentService.empty)
     {
@@ -20,8 +25,8 @@ function AddItem() {
         </div>
 
         <div id="header-zone" className='flex h-[50%] w-[50%] justify-center  items-center gap-16'>
-                <button className="btn btn-outline btn-warning  btn-md lg:btn-lg">Lyrics</button>
-                <button className="btn btn-outline  btn-warning  btn-md lg:btn-lg btn-disabled">Slides</button>
+                <button className="btn btn-outline btn-warning  btn-md lg:btn-lg" onClick={()=>handleAddLyricsItem()}><MdOutlineLyrics  />Lyrics</button>
+                <button className="btn btn-outline  btn-warning  btn-md lg:btn-lg btn-disabled"><RiSlideshow2Fill />Slides</button>
         </div>
     </div>
   )

@@ -96,7 +96,7 @@ function Service() {
 
   return (
     <div className='bg-black border-r border-orange-600 text-white h-[100%] w-[30%] flex flex-col '>
-        <span className='text-md font-bold  p-2 mx-auto bg-[#292524] w-[100%]  text-center '>{currentService.title}</span>
+        <span className='text-md font-bold  p-2 mx-auto bg-[#1d232a] w-[100%]  text-center '>{currentService.title}</span>
 
         <dialog id="new_service_modal" className="modal">
           <div className="modal-box flex flex-col items-center justify-between gap-2">
@@ -145,7 +145,7 @@ function Service() {
         </dialog>
 
 
-        <div id="service-buttons" className='text-md font-bold  p-2 mx-auto  w-[100%]  text-center border-b border-b-[#391a0e] flex justify-around bg-[#292524]'>
+        <div id="service-buttons" className='text-md font-bold  p-2 mx-auto  w-[100%]  text-center border-b border-b-neutral flex justify-around bg-[#1d232a]'>
             <FaPlus id="add_service" size={20} className='hover:text-orange-600' onClick={()=>handleOpenServiceModal()}/>
             <FaFolderOpen size={20} className='hover:text-orange-600 feature-disabled' />
             <FaEdit id="edit_service" size={20} className='hover:text-orange-600 feature-disabled' onClick={()=>handleEditServiceModal()}/>
@@ -159,7 +159,7 @@ function Service() {
 
 
 
-        <div id="service-items-buttons" className={!currentService.empty?"flex justify-between p-2 flex-grow-0 bg-[#292524]":"hidden"}>
+        <div id="service-items-buttons" className={!currentService.empty?"flex justify-between p-2 flex-grow-0 bg-[#1d232a] border-t border-t-neutral":"hidden"}>
                 <div className='flex items-center hover:text-green-500 cursor-pointer' onClick={handleAddServiceItem}>
                     <MdAddBox size={30}/>
                     <span> Add </span>
