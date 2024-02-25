@@ -3,6 +3,7 @@ import axios from 'axios';
 import parse from 'html-react-parser';
 import { useState, useContext } from 'react';
 import { BiSolidLeftArrow } from "react-icons/bi";
+import { MdSaveAlt } from "react-icons/md";
 import CurrentServiceContext from '../context/ServiceContext'
 
 function AddItemLyrics() {
@@ -11,23 +12,31 @@ function AddItemLyrics() {
 
     const [searchQuerry, setSearchQuerry] = useState('');
     const [songResponse, setSongResponse] = useState([]);
-    const [previewSong, setPreviewSong]   = useState([]);
-    const [songTitle, setSongTitle]       = useState('');
     const {currentService, setCurrentService} = useContext(CurrentServiceContext);
     
+    const [previewSong, setPreviewSong]   = useState(
+        {
+            local:false,
+            id:'',
+            author:"",
+            title:"",
+            content:[],
+            order:"",
+    });
+
     const search_lyrics = async (querry) =>{
         await axios.get(API_URL_SEARCH_SONGS + querry)
         .then(res => {
             setSongResponse([]);
-            res.data?.cantari.map((data,idx) =>(
-                setSongResponse(songResponse => [...songResponse, data])
-            ))
+            if (res.data?.cantari){
+                res.data?.cantari.map((data,idx) =>(
+                    setSongResponse(songResponse => [...songResponse, data])
+                ))
+            }
         })
         .catch((error) => {
         console.log(error)
         });
-
-        console.log(songResponse);
     }
 
     const handleSearchQuerry = (e) => {
@@ -37,33 +46,45 @@ function AddItemLyrics() {
 
     function displaySearchResults(){
         return(songResponse.map((song, id)=>(
-            <li className='hover:bg-orange-600'  id={song.id} key={song.id} onClick={() => read_song(song.id)}>{song.text.replace(/(<([^>]+)>)/ig, '').replace('&mdash;', '    | Autor:')}</li>
+            <li className='hover:bg-orange-600 p-2'  id={song.id} key={song.id} onClick={() => read_song(song.id)}>{song.text.replace(/(<([^>]+)>)/ig, '').replace('&mdash;', '    | Autor:')}</li>
         )));
 
     };
 
-    const read_song = async (querry) =>{
-        await axios.get(API_ONE_SONG + querry)
+    const read_song = async (id) =>{
+        await axios.get(API_ONE_SONG + id)
         .then(res => {
-            setPreviewSong(res.data?.cantec.continut);
-            setSongTitle(res.data?.cantec.titlu);
+            setPreviewSong({
+                id:id,
+                local:false,
+                title:res.data?.cantec.titlu,
+                author:res.data?.cantec.autor,
+                order:res.data?.cantec.ordine,
+                content:res.data?.cantec.continut
+            });
+
         })
         .catch((error) => {
         console.log(error)
         });
-        console.log(previewSong);
+
     }
 
     function displayPreviewSong(){
-        return(previewSong.map((song, id)=>(
-                    <li  className='py-2 flex items-center hover:bg-orange-600' id={song.tip} key={song.tip} onClick={() => ('')}>
+        return(previewSong.content.map((song, id)=>(
+                    <li  className='py-2 flex items-center hover:bg-orange-600' id={song.tip} key={song.tip} >
                         <span className=' min-w-12 w-12'>{song.tip}</span>
                         <span>{parse(song.text)}</span>
                     </li>
                 )));
 
-                
             }
+
+    function handleAddToService(){
+        if(previewSong){
+            currentService.items.push(previewSong);
+        }
+    }
 
   return (
     <div className='bg-black text-white w-[100%] h-[70vh] flex  px-5 '>
@@ -90,7 +111,7 @@ function AddItemLyrics() {
             </div>
 
             <div className="justify-center flex-col p-8">
-                    <h2 className="text-center text-orange-600 font-bold">Search results:</h2>
+                    <h2 className="text-center text-orange-600 font-bold">Search results[{songResponse.length}]:</h2>
             </div>
 
             {/* <div className="  bg-base-100  flex justify-center mt-8 rounded-sm overflow-auto"> */}
@@ -112,11 +133,12 @@ function AddItemLyrics() {
             </div>
 
             <div id ="content-title" className=' pt-8 flex justify-center'>
-                    <h2 className='text-2xl text-orange-600'>{songTitle}</h2>
+                    <h2 className='text-2xl text-orange-600'>{previewSong.title}</h2>
             </div>
 
-            <div id ="content-title" className=' pt-8 flex justify-center'>
-                    <button className={!currentService.empty && (songTitle)?"btn btn-outline btn-accent":"btn btn-outline btn-disabled"}><BiSolidLeftArrow /> Add to service</button>
+            <div id ="content-title" className=' pt-8 flex justify-center gap-5'>
+                    <button onClick={handleAddToService} className={!currentService.empty && (previewSong.title)?"btn btn-outline btn-accent":"btn btn-outline btn-disabled"}><BiSolidLeftArrow /> Add to service</button>
+                    <button className="btn btn-outline btn-warning"><MdSaveAlt size={20}/> Save to database</button>
             </div>
             
             <div className="  flex  pt-3 rounded-sm overflow-auto h-[80%]  w-[100%] justify-center">

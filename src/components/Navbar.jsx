@@ -26,7 +26,7 @@ function Navbar() {
       </Link>
 
       <span id='middle-section' className='flex md:space-x-24 text-3xl'>
-        <Link to="/search">
+        <Link to="/add-item/lyrics">
           <FaSearch className=' hover:text-orange-600' title='Search'/>
         </Link>
 

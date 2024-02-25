@@ -12,20 +12,10 @@ function Service() {
     title:"No service",
     empty:true,
     creation_date:null,
-    items:[{
-      id:1,
-      selected:false,
-      type:'lyrics',
-      title:"Item 1",
-      content:''
-    }]
+    items:[]
   };
   
   const {currentService, setCurrentService} = useContext(CurrentServiceContext);
-  
-  useEffect(() => {
-    setCurrentService(empty_service);
-  }, []) 
 
   function handleOpenServiceModal(){
     if (currentService.empty === true)
