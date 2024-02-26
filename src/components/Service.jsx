@@ -83,6 +83,34 @@ function Service() {
   function handleRemoveServiceItem(){
 
   }
+  const [selectedItem, setselectedItem] = useState();
+
+  const selectedItemHandle = (song_id) => {
+
+    for(const item of currentService.items)
+    {
+        if(item.id === song_id)
+        {
+            item.selected = true;
+            setselectedItem(song_id);
+        }
+        else
+        {
+            item.selected = false;
+        }
+    }
+}
+
+  function listServiceItems (){
+    console.log(currentService)
+    return(currentService.items.map((song)=>(
+                <li className={song.selected?"hover:bg-orange-600  bg-orange-600 text-white p-2":"hover:bg-orange-600 p-2"} id={song.id} key={song.id} onClick={() => selectedItemHandle(song.id)} >{song.title}</li>
+            )));
+}
+
+  useEffect(() => {
+    listServiceItems();
+},[JSON.stringify(currentService)])
 
   return (
     <div className='bg-black border-r border-orange-600 text-white h-[100%] w-[30%] flex flex-col '>
@@ -144,7 +172,10 @@ function Service() {
         </div>
 
         <div id="list-items" className='h-[90%]'>
-
+             {/* service schedule */}
+             <ul className='flex-grow overflow-auto'>
+                {listServiceItems()}
+            </ul>
         </div>
 
 

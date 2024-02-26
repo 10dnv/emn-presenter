@@ -57,6 +57,7 @@ function AddItemLyrics() {
             setPreviewSong({
                 id:id,
                 local:false,
+                selected:false,
                 title:res.data?.cantec.titlu,
                 author:res.data?.cantec.autor,
                 order:res.data?.cantec.ordine,
@@ -82,9 +83,13 @@ function AddItemLyrics() {
 
     function handleAddToService(){
         if(previewSong){
-            currentService.items.push(previewSong);
+            setCurrentService(oldService => ({
+                ...oldService,
+                items: [...currentService.items, previewSong]
+              }));
         }
     }
+
 
   return (
     <div className='bg-black text-white w-[100%] h-[70vh] flex  px-5 '>
