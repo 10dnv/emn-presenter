@@ -82,7 +82,7 @@ function AddItemLyrics() {
             }
 
     function handleAddToService(){
-        if(previewSong){
+        if(!currentService.items.includes(previewSong)){
             setCurrentService(oldService => ({
                 ...oldService,
                 items: [...currentService.items, previewSong]
@@ -143,7 +143,7 @@ function AddItemLyrics() {
 
             <div id ="content-title" className=' pt-8 flex justify-center gap-5'>
                     <button onClick={handleAddToService} className={!currentService.empty && (previewSong.title)?"btn btn-outline btn-accent":"btn btn-outline btn-disabled"}><BiSolidLeftArrow /> Add to service</button>
-                    <button className="btn btn-outline btn-warning"><MdSaveAlt size={20}/> Save to database</button>
+                    <button className="btn btn-outline btn-warning btn-disabled"><MdSaveAlt size={20}/> Save to database</button>
             </div>
             
             <div className="  flex  pt-3 rounded-sm overflow-auto h-[80%]  w-[100%] justify-center">

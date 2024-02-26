@@ -81,8 +81,12 @@ function Service() {
 
   }
   function handleRemoveServiceItem(){
-
+    setCurrentService(oldService => ({
+      ...oldService,
+      items: [...currentService.items.filter((item) => item.selected !== true)]
+    }));
   }
+
   const [selectedItem, setselectedItem] = useState();
 
   const selectedItemHandle = (song_id) => {
@@ -102,7 +106,6 @@ function Service() {
 }
 
   function listServiceItems (){
-    console.log(currentService)
     return(currentService.items.map((song)=>(
                 <li className={song.selected?"hover:bg-orange-600  bg-orange-600 text-white p-2":"hover:bg-orange-600 p-2"} id={song.id} key={song.id} onClick={() => selectedItemHandle(song.id)} >{song.title}</li>
             )));
@@ -191,7 +194,7 @@ function Service() {
                     <span> Edit </span>
                 </div>
                 
-                <div className='flex items-center hover:text-[#ad343e] cursor-pointer' onClick={'removeServiceItemHandle'}>
+                <div className='flex items-center hover:text-[#ad343e] cursor-pointer' onClick={handleRemoveServiceItem}>
                     <MdOutlinePlaylistRemove size={30}/>
                     <span> Remove</span>
                 </div>
