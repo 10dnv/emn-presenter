@@ -10,8 +10,10 @@ export const ServiceContext = ({ children }) => {
         items:[]
     });
 
+    const [selectedItem, setselectedItem] = useState();
+
     return (
-        <CurrentServiceContext.Provider value={{ currentService, setCurrentService }}>
+        <CurrentServiceContext.Provider value={{ currentService, setCurrentService, selectedItem, setselectedItem}}>
             {children}
         </CurrentServiceContext.Provider>
     )

@@ -10,6 +10,7 @@ import Bible from './components/Bible';
 import AddItem from './components/AddItem';
 import Homepage from './components/Homepage';
 import AddItemLyrics from './components/AddItemLyrics';
+import ViewItem from './components/ViewItem';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/bible" element={<Bible />}></Route>
                 <Route path="/add-item" element={<AddItem />}></Route>
                 <Route path="/add-item/lyrics" element={<AddItemLyrics/>}></Route>
+                <Route path="/view-item" element={<ViewItem/>}></Route>
                 
                 
               </Routes>

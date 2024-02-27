@@ -15,7 +15,7 @@ function Service() {
     items:[]
   };
   
-  const {currentService, setCurrentService} = useContext(CurrentServiceContext);
+  const {currentService, setCurrentService, selectedItem, setselectedItem} = useContext(CurrentServiceContext);
 
   function handleOpenServiceModal(){
     if (currentService.empty === true)
@@ -87,7 +87,7 @@ function Service() {
     }));
   }
 
-  const [selectedItem, setselectedItem] = useState();
+  // const [selectedItem, setselectedItem] = useState();
 
   const selectedItemHandle = (song_id) => {
 
@@ -97,6 +97,7 @@ function Service() {
         {
             item.selected = true;
             setselectedItem(song_id);
+            navigate("/view-item");
         }
         else
         {

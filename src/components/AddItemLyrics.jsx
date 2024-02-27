@@ -56,6 +56,7 @@ function AddItemLyrics() {
         .then(res => {
             setPreviewSong({
                 id:id,
+                type:"song",
                 local:false,
                 selected:false,
                 title:res.data?.cantec.titlu,
