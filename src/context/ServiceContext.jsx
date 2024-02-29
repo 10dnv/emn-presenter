@@ -11,9 +11,12 @@ export const ServiceContext = ({ children }) => {
     });
 
     const [selectedItem, setselectedItem] = useState();
+    const [mainDisplayText, setMainDisplayText] = useState("")
+    const [stageDisplayText, setStageDisplayText] = useState("")
 
     return (
-        <CurrentServiceContext.Provider value={{ currentService, setCurrentService, selectedItem, setselectedItem}}>
+        <CurrentServiceContext.Provider value={{ currentService, setCurrentService, selectedItem, setselectedItem,
+            mainDisplayText, setMainDisplayText, stageDisplayText, setStageDisplayText}}>
             {children}
         </CurrentServiceContext.Provider>
     )

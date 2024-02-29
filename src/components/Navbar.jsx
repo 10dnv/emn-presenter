@@ -5,7 +5,9 @@ import { FaBookBible } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
-import { MdMonitor } from "react-icons/md";
+import MainDisplay from './MainDisplay';
+import StageDisplay from './StageDisplay';
+import { LuMonitorX } from "react-icons/lu";
 
 function Navbar() {
 
@@ -34,9 +36,11 @@ function Navbar() {
         <FaBookBible className=' hover:text-orange-600' title='Bible'/>
         </Link>
 
-        <Link to="/monitor">
-          <MdMonitor className=' hover:text-orange-600' title='Monitor'/>
-        </Link>
+        <MainDisplay/>
+
+        <StageDisplay/>
+
+        <LuMonitorX className=' hover:text-orange-600' title='Clear all screens'/>
       </span>
 
      

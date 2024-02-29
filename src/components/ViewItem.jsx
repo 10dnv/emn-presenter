@@ -2,40 +2,12 @@ import { useContext, useEffect, useState } from 'react';
 import React from 'react'
 import CurrentServiceContext from '../context/ServiceContext'
 import parse from 'html-react-parser';
-import { createPortal } from 'react-dom';
-
-
-function NewWindowPortal({ children }) {
-  const [newWindow, setNewWindow] = useState(null);
-  const styles = `
-  @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');`
-
-  
-  const openNewWindow = () => {
-    const newWindowRef = window.open('', '_blank');
-    setNewWindow(newWindowRef);
-
-    // Inject the CSS styles into the new window
-  const styleSheet = newWindowRef.document.createElement('style');
-  styleSheet.type = 'text/css';
-  styleSheet.innerText = styles;
-  newWindowRef.document.head.appendChild(styleSheet);
-
-
-  };
-  return (
-    <>
-      <button onClick={openNewWindow}>Open New Window</button>
-      {newWindow && createPortal(children, newWindow.document.body )}
-    </>
-  );
-}
 
 function ViewItem() {
 
-  const {currentService, setCurrentService} = useContext(CurrentServiceContext);
+  const {currentService, setCurrentService, mainDisplayText, setMainDisplayText} = useContext(CurrentServiceContext);
   const [previewItem, setPreviewItem] = useState({});
-  const [mainDisplayText, setMainDisplayText] = useState("");
+
 
   function handleDisplaySelectedItem(){
     for(const item of currentService.items)
@@ -95,14 +67,6 @@ function ViewItem() {
         <div className="divider divider-horizontal"></div>
 
         <div id='preview-monitor' className='w-[50%] '>
-          <NewWindowPortal >
-            <div id ="MainDisplay" className='flex items-center justify-center  text-white bg-black w-full h-full ' >
-            {/* <Textfit className='w-full h-full bg-red-600 justify-center items-center'> */}
-            <p className='text-center text-7xl'>{mainDisplayText}</p>
-              {/* </Textfit> */}
-
-            </div>
-        </NewWindowPortal>
         </div>
 
     </div>
