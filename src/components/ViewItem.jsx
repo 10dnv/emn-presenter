@@ -5,7 +5,7 @@ import parse from 'html-react-parser';
 
 function ViewItem() {
 
-  const {currentService, setCurrentService, mainDisplayText, setMainDisplayText} = useContext(CurrentServiceContext);
+  const {currentService, setCurrentService, mainDisplayText, setMainDisplayText, setStageDisplayText} = useContext(CurrentServiceContext);
   const [previewItem, setPreviewItem] = useState({});
 
 
@@ -37,12 +37,14 @@ function ViewItem() {
   },[JSON.stringify(currentService)])
 
     function handlePrepareDisplaySlide(ev){
-      // console.log(previewItem.content)
+      console.log(previewItem)
 
       {
         previewItem.content?.map((data) =>(
 
-          (ev.currentTarget.id === data.tip)?setMainDisplayText(parse(data.text)):null
+          (ev.currentTarget.id === data.tip)?(
+            setMainDisplayText(parse(data.text)),
+             setStageDisplayText(parse(data.text))):null
         ))
     }
   }

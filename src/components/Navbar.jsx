@@ -1,4 +1,5 @@
 import React from 'react'
+import {useContext} from 'react';
 import { Link } from "react-router-dom";
 import Logo from './Logo'
 import { FaBookBible } from "react-icons/fa6";
@@ -8,6 +9,7 @@ import { MdAccountCircle } from "react-icons/md";
 import MainDisplay from './MainDisplay';
 import StageDisplay from './StageDisplay';
 import { LuMonitorX } from "react-icons/lu";
+import CurrentServiceContext from '../context/ServiceContext'
 
 function Navbar() {
 
@@ -21,6 +23,11 @@ function Navbar() {
     });
   });
 
+  const {setMainDisplayText, setStageDisplayText} = useContext(CurrentServiceContext)
+  function handleClearAllScreens(){
+    setMainDisplayText("");
+    setStageDisplayText("");
+  }
   return (
     <div className='bg-black text-white text-2xl h-16 border-b border-orange-600 flex justify-between items-center px-3'>
       <Link to="/">
@@ -40,7 +47,7 @@ function Navbar() {
 
         <StageDisplay/>
 
-        <LuMonitorX className=' hover:text-orange-600' title='Clear all screens'/>
+        <LuMonitorX className=' hover:text-orange-600' title='Clear all screens' onClick={handleClearAllScreens}/>
       </span>
 
      

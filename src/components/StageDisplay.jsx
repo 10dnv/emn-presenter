@@ -1,8 +1,9 @@
-import { useState} from 'react';
+import { useState, useContext} from 'react';
 import React from 'react'
 import { createPortal } from 'react-dom';
 import { MdMonitor } from "react-icons/md";
 import { PiMicrophoneStage } from "react-icons/pi";
+import CurrentServiceContext from '../context/ServiceContext'
 
 
 function NewWindowPortal({ children }) {
@@ -35,14 +36,14 @@ function NewWindowPortal({ children }) {
 }
 
 function StageDisplay() {
-    
+  const {stageDisplayText} = useContext(CurrentServiceContext)
   return (
  
     <NewWindowPortal >
             <div id="title" className=" text-2xl text-red-500 bg-black flex justify-center">Stage Display</div>
-            {/* <div id ="StageDisplay" className='flex items-center justify-center  text-white bg-black w-full h-full ' >
-            <p className='text-center text-7xl'>stage</p>
-            </div> */}
+            <div id ="StageDisplay" className='flex items-center justify-center  text-white bg-black w-full h-full ' >
+            <p className='text-center text-7xl'>{stageDisplayText}</p>
+            </div>
     </NewWindowPortal>
   )
 }
