@@ -8,42 +8,54 @@ import CurrentServiceContext from '../context/ServiceContext'
 
 function NewWindowPortal({ children }) {
   const [newWindow, setNewWindow] = useState(null);
-  const styles = `
-  @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');`
 
-  
   const openNewWindow = () => {
     console.log("created stage monitor window")
     const newWindowRef = window.open('', '_blank');
+    var htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Stage Display</title>
+      </head>
+   
+      <body>
+      <script src="https://cdn.tailwindcss.com"></script>
+      </body>
+    </html>`;
+    newWindowRef.document.write(htmlContent);
     setNewWindow(newWindowRef);
-
-    // Inject the CSS styles into the new window
-    const styleSheet = newWindowRef.document.createElement('style');
-    styleSheet.type = 'text/css';
-    styleSheet.innerText = styles;
-    newWindowRef.document.head.appendChild(styleSheet);
   };
-  
   return (
     <>
         <span className='flex items-baseline hover:text-orange-600'>
             <MdMonitor className='' title='Stage Display' onClick={openNewWindow}/>
             <PiMicrophoneStage size={20} />
         </span>
+        
       {newWindow && createPortal(children, newWindow.document.body )}
     </>
   );
 }
 
 function StageDisplay() {
-  const {stageDisplayText} = useContext(CurrentServiceContext)
+    const {stageDisplayText} = useContext(CurrentServiceContext)
   return (
  
     <NewWindowPortal >
-            <div id="title" className=" text-2xl text-red-500 bg-black flex justify-center">Stage Display</div>
-            <div id ="StageDisplay" className='flex items-center justify-center  text-white bg-black w-full h-full ' >
-            <p className='text-center text-7xl'>{stageDisplayText}</p>
+        <div id ="StageDisplay" className='flex flex-col items-center   text-white bg-black w-full h-full ' >
+            
+            <div id="title" className=" text-2xl text-orange-600 bg-black flex justify-center h-[5vh]">
+              Stage display
             </div>
+
+            <div id="order"  className='text-5xl text-white bg-black flex justify-center h-[5vh]'> 
+              V1-C-V2-C-B-V3
+            </div>
+
+            <p className='text-center text-7xl items-center justify-center flex h-[90vh]'>{stageDisplayText}</p>
+        </div>
     </NewWindowPortal>
   )
 }
