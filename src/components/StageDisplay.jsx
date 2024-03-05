@@ -46,7 +46,7 @@ function StageDisplay() {
     function getVerse(){
       if (currentService.items[selectedItem])
       return(
-        <p>{ parse(currentService.items[selectedItem].content[selectedVerse]?.text)}</p>
+        <p className='max-h-[80vh] overflow-y-clip'>{ parse(currentService.items[selectedItem].content[selectedVerse]?.text)}</p>
         
         )
       };
@@ -93,7 +93,7 @@ function StageDisplay() {
               <span>Stage display</span> 
               {getTitile()}
             </div>
-            
+
             <div id="order"  className='text-5xl text-white bg-black flex justify-center h-[5vh]'> 
               {getOrder()}
             </div>
