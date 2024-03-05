@@ -5,7 +5,7 @@ import parse from 'html-react-parser';
 
 function ViewItem() {
 
-  const {currentService, setCurrentService, mainDisplayText, setMainDisplayText, setStageDisplayText} = useContext(CurrentServiceContext);
+  const {currentService, setCurrentService, mainDisplayText, setMainDisplayText, setStageDisplayText,selectedVerse, setSelectedVerse} = useContext(CurrentServiceContext);
   const [previewItem, setPreviewItem] = useState({});
 
 
@@ -24,9 +24,9 @@ function ViewItem() {
     function displayPreviewItem(){
       // console.log(previewItem);
       return(previewItem.content?.map((song, id)=>(
-                  <li  className='py-2 flex items-center hover:bg-orange-600' id={song.tip} key={song.tip} onClick={handlePrepareDisplaySlide}>
+                  <li  className='py-2 flex items-center hover:bg-orange-600' id={song.tip} key={id} onClick={handlePrepareDisplaySlide}>
                       <span className=' min-w-12 w-12 font-bold'>{song.tip}</span>
-                      <span>{parse(song.text)}</span>
+                      <span>{parse(song?.text)}</span>
                   </li>
               )));
 
@@ -40,11 +40,10 @@ function ViewItem() {
       console.log(previewItem)
 
       {
-        previewItem.content?.map((data) =>(
+        previewItem.content?.map((data, idx) =>(
 
-          (ev.currentTarget.id === data.tip)?(
-            setMainDisplayText(parse(data.text)),
-             setStageDisplayText(parse(data.text))):null
+          (ev.currentTarget.id === data?.tip)?(
+            setSelectedVerse(idx)):null
         ))
     }
   }

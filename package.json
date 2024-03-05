@@ -1,6 +1,7 @@
 {
   "name": "emn-presenter",
   "version": "0.1.0",
+  "home": ".",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",

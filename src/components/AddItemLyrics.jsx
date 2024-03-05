@@ -46,7 +46,7 @@ function AddItemLyrics() {
 
     function displaySearchResults(){
         return(songResponse.map((song, id)=>(
-            <li className='hover:bg-orange-600 p-2'  id={song.id} key={song.id} onClick={() => read_song(song.id)}>{song.text.replace(/(<([^>]+)>)/ig, '').replace('&mdash;', '    | Autor:')}</li>
+            <li className='hover:bg-orange-600 p-2'  id={song.id} key={song.id} onClick={() => read_song(song.id)}>{song?.text.replace(/(<([^>]+)>)/ig, '').replace('&mdash;', '    | Autor:')}</li>
         )));
 
     };
@@ -74,9 +74,9 @@ function AddItemLyrics() {
 
     function displayPreviewSong(){
         return(previewSong.content.map((song, id)=>(
-                    <li  className='py-2 flex items-center hover:bg-orange-600' id={song.tip} key={song.tip} >
-                        <span className=' min-w-12 w-12'>{song.tip}</span>
-                        <span>{parse(song.text)}</span>
+                    <li  className='py-2 flex items-center hover:bg-orange-600' id={song?.tip} key={song?.tip} >
+                        <span className=' min-w-12 w-12'>{song?.tip}</span>
+                        <span>{parse(song?.text)}</span>
                     </li>
                 )));
 

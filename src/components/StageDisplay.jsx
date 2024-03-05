@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { MdMonitor } from "react-icons/md";
 import { PiMicrophoneStage } from "react-icons/pi";
 import CurrentServiceContext from '../context/ServiceContext'
+import parse from 'html-react-parser';
 
 
 function NewWindowPortal({ children }) {
@@ -40,21 +41,69 @@ function NewWindowPortal({ children }) {
 }
 
 function StageDisplay() {
-    const {stageDisplayText} = useContext(CurrentServiceContext)
+    const {stageDisplayText, selectedVerse, currentService, selectedItem} = useContext(CurrentServiceContext)
+
+    function getVerse(){
+      if (currentService.items[selectedItem])
+      return(
+        <p>{ parse(currentService.items[selectedItem].content[selectedVerse]?.text)}</p>
+        
+        )
+      };
+    function getNextVerse(){
+      if (currentService.items[selectedItem])
+      return(
+        parse(currentService.items[selectedItem].content[selectedVerse]?.text)
+        )
+      };
+
+    function getTitile(){
+      if (currentService.items[selectedItem])
+      return(
+        <span className=''>{ currentService.items[selectedItem].title}</span>
+        
+        )
+      };
+    function getOrder(){
+      if (currentService.items[selectedItem])
+      {
+        let orderItems = String(currentService.items[selectedItem].order).split(" ");
+        let selectedItemType = String(currentService.items[selectedItem].content[selectedVerse]?.tip)
+        
+      return(
+        // asta merge
+        <div id="order">{ 
+          orderItems.map((itm)=>(
+            ((itm === selectedItemType)&& (itm.id != 'used'))?(<span className='text-orange-600 px-4' id='used'>{itm}</span>):
+            <span className='text-white px-4'>{itm}</span>
+        ))
+
+        }</div>
+        
+        )
+      };
+    }
+    
   return (
  
     <NewWindowPortal >
-        <div id ="StageDisplay" className='flex flex-col items-center   text-white bg-black w-full h-full ' >
+        <div id ="StageDisplay" className='flex flex-col    text-white bg-black w-full h-full ' >
             
-            <div id="title" className=" text-2xl text-orange-600 bg-black flex justify-center h-[5vh]">
-              Stage display
+            <div id="title" className=" text-2xl text-orange-600 bg-black flex justify-between h-[5vh] mx-3 my-1">
+              <span>Stage display</span> 
+              {getTitile()}
             </div>
-
+            
             <div id="order"  className='text-5xl text-white bg-black flex justify-center h-[5vh]'> 
-              V1-C-V2-C-B-V3
+              {getOrder()}
             </div>
 
-            <p className='text-center text-7xl items-center justify-center flex h-[90vh]'>{stageDisplayText}</p>
+            <p className='text-center text-7xl items-center justify-center flex h-[80vh] '>{getVerse()}</p>
+
+            <div id="next" className=' text-3xl   items-center justify-start pb-4 flex h-[10vh]'>
+              <span className='font-bold px-3 text-orange-600'>NEXT &rarr; </span>
+              <span className='line-clamp-2'>{getNextVerse()}</span>
+            </div>
         </div>
     </NewWindowPortal>
   )

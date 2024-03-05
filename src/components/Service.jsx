@@ -91,18 +91,21 @@ function Service() {
 
   const selectedItemHandle = (song_id) => {
 
+    let i = 0;
     for(const item of currentService.items)
     {
         if(item.id === song_id)
         {
             item.selected = true;
-            setselectedItem(song_id);
+            setselectedItem(i);
+            // console.log("AICI" + i)
             navigate("/view-item");
         }
         else
         {
             item.selected = false;
         }
+        i++;
     }
 }
 
@@ -115,6 +118,25 @@ function Service() {
   useEffect(() => {
     listServiceItems();
 },[JSON.stringify(currentService)])
+
+// useEffect(() => {
+//   const keyDownHandler = event => {
+//     console.log('User pressed: ', event.key);
+
+//     // if (event.key === 'Enter') {
+//     //   event.preventDefault();
+
+//     //   // 👇️ your logic here
+//     //   myFunction();
+//     // }
+//   };
+
+//   document.addEventListener('keydown', keyDownHandler);
+
+//   return () => {
+//     document.removeEventListener('keydown', keyDownHandler);
+//   };
+// }, []);
 
   return (
     <div className='bg-black border-r border-orange-600 text-white h-[100%] w-[30%] flex flex-col '>
