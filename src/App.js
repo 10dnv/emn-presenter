@@ -11,6 +11,7 @@ import AddItem from './components/AddItem';
 import Homepage from './components/Homepage';
 import AddItemLyrics from './components/AddItemLyrics';
 import ViewItem from './components/ViewItem';
+import CreateSong from './components/CreateSong';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/add-item" element={<AddItem />}></Route>
                 <Route path="/add-item/lyrics" element={<AddItemLyrics/>}></Route>
                 <Route path="/view-item" element={<ViewItem/>}></Route>
+                <Route path="/create-song" element={<CreateSong/>}></Route>
                 
                 
               </Routes>

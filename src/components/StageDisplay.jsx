@@ -78,7 +78,7 @@ function StageDisplay() {
         // asta merge
         <div id="order">{ 
           orderItems.map((itm)=>(
-            ((itm === selectedItemType)&& (itm.id != 'used'))?(<span className='text-orange-600 px-4' id='used'>{itm}</span>):
+            ((itm === selectedItemType)&& (itm.id !== 'used'))?(<span className='text-orange-600 px-4' id='used'>{itm}</span>):
             <span className='text-white px-4'>{itm}</span>
         ))
 

@@ -5,7 +5,7 @@ import Logo from './Logo'
 import { FaBookBible } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
-import { MdAccountCircle } from "react-icons/md";
+import { MdAccountCircle, MdOutlineLyrics } from "react-icons/md";
 import MainDisplay from './MainDisplay';
 import StageDisplay from './StageDisplay';
 import { LuMonitorX } from "react-icons/lu";
@@ -35,6 +35,11 @@ function Navbar() {
       </Link>
 
       <span id='middle-section' className='flex md:space-x-24 text-3xl'>
+        
+        <Link to="/create-song">
+         <MdOutlineLyrics className=' hover:text-orange-600' title='Create song'/>
+        </Link>
+
         <Link to="/add-item/lyrics">
           <FaSearch className=' hover:text-orange-600' title='Search'/>
         </Link>
