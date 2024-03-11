@@ -51,10 +51,14 @@ function StageDisplay() {
         )
       };
     function getNextVerse(){
-      if (currentService.items[selectedItem])
+     
+      if (currentService.items[selectedItem] && selectedVerse < currentService.items[selectedItem].content.length - 1)
       return(
-        parse(currentService.items[selectedItem].content[selectedVerse]?.text)
+        parse(currentService.items[selectedItem].content[selectedVerse + 1].text)
         )
+        else{
+          return ""
+        }
       };
 
     function getTitile(){
