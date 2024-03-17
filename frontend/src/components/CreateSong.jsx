@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid';
+import { MdDeleteForever } from "react-icons/md";
 
 function CreateSong() {
 
@@ -39,9 +40,12 @@ function CreateSong() {
   function displaySong(){
     console.log(newSong);
     return(newSong.content?.map((slide)=>(
-                <li  className={slide.selected?"bg-orange-600 py-2 flex items-center":'py-2 flex items-center hover:bg-orange-600'} id={slide.id} key={slide.id} onClick={setSelectedItem}>
-                    <span className=' min-w-12 w-12 font-bold'>{slide.tip}</span>
-                    <span className='whitespace-pre-wrap'>{slide?.text}</span>
+                <li  className={slide.selected?"bg-orange-600 py-2 flex items-center justify-between":'py-2 flex items-center hover:bg-orange-600'} id={slide.id} key={slide.id} onClick={setSelectedItem}>
+                    <span className='flex'>
+                        <span className=' min-w-12 w-12 font-bold'>{slide.tip}</span>
+                        <span className='whitespace-pre-wrap'>{slide?.text}</span>
+                    </span>
+                   {slide.selected && <MdDeleteForever  id={slide.id} size='28' className='text-black hover:text-white' onClick={handleRemoveSection}/>}
                 </li>
             )));
 
@@ -64,6 +68,15 @@ function CreateSong() {
   useEffect(() => {
     displaySong();
 },[JSON.stringify(newSong.content)])
+
+
+  function handleRemoveSection(ev){
+    let itemId = ev.currentTarget.id;
+    setNewSong(oldSong => ({
+      ...oldSong,
+      content: [...newSong.content.filter((item) => item.id !== itemId)]
+    }));
+  }
 
   return (
     <div className='bg-black text-white w-[100%] h-[80vh] flex  px-5 '>
