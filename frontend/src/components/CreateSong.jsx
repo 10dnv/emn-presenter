@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import { MdDeleteForever } from "react-icons/md";
+import { BiSolidDuplicate } from "react-icons/bi";
 
 function CreateSong() {
 
@@ -45,7 +46,10 @@ function CreateSong() {
                         <span className=' min-w-12 w-12 font-bold'>{slide.tip}</span>
                         <span className='whitespace-pre-wrap'>{slide?.text}</span>
                     </span>
-                   {slide.selected && <MdDeleteForever  id={slide.id} size='28' className='text-black hover:text-white' onClick={handleRemoveSection}/>}
+                    <span className='flex gap-2'>
+                      {slide.selected && <BiSolidDuplicate  id={slide.id} size='24' className='text-black hover:text-white' onClick={handleDuplicateSection} title='duplicate section'/>}
+                      {slide.selected && <MdDeleteForever  id={slide.id} size='24' className='text-black hover:text-white' onClick={handleRemoveSection} title='remove section'/>}
+                   </span>
                 </li>
             )));
 
@@ -76,6 +80,19 @@ function CreateSong() {
       ...oldSong,
       content: [...newSong.content.filter((item) => item.id !== itemId)]
     }));
+  }
+
+  function handleDuplicateSection(ev){
+    let existingItemId = ev.currentTarget.id;
+    
+    newSong.content.forEach(element => {
+      if(existingItemId === element.id)
+      {
+        setNewSong({
+          content: [...newSong.content, {'id':uuidv4(), 'selected':false,'tip':element.tip, 'text':element.text}]
+        })
+      }
+    });
   }
 
   return (
