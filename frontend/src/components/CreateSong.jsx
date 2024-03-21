@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import { MdDeleteForever } from "react-icons/md";
 import { BiSolidDuplicate } from "react-icons/bi";
+import { MdSaveAlt } from "react-icons/md";
+import {Reorder} from "framer-motion";
 
 function CreateSong() {
 
@@ -95,6 +97,10 @@ function CreateSong() {
     });
   }
 
+  function handleSaveNewSong(){
+    console.log(newSong)
+  }
+
   return (
     <div className='bg-black text-white w-[100%] h-[80vh] flex  px-5 '>
         <div id='create-song-left-container' className='w-[50%] overflow-auto flex-grow-1 '>
@@ -166,6 +172,9 @@ function CreateSong() {
         <div id='create-song-right-container' className='w-[50%]  overflow-auto flex-grow-1 '>
             <div id ="create-song-lyrics-title" className=' py-5 flex justify-center'>
                     <h1 className='text-3xl'>Preview</h1>
+            </div>
+            <div id ="create-song-lyrics-title" className='  flex justify-center'>
+                     <button className={newSong.content.length?"btn btn-outline btn-warning":"btn btn-disabled"} onClick={handleSaveNewSong}><MdSaveAlt size={20}/> Save to database</button>
             </div>
 
             <div id ="create-song-lyrics-content" className='pt-7  flex flex-col gap-5 '>
