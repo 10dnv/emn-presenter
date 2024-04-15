@@ -9,6 +9,7 @@ import { MdAccountCircle, MdOutlineLyrics } from "react-icons/md";
 import MainDisplay from './MainDisplay';
 import StageDisplay from './StageDisplay';
 import { LuMonitorX } from "react-icons/lu";
+import { TiPlus } from "react-icons/ti";
 import CurrentServiceContext from '../context/ServiceContext'
 
 function Navbar() {
@@ -37,7 +38,10 @@ function Navbar() {
       <span id='middle-section' className='flex md:space-x-24 text-3xl'>
         
         <Link to="/create-song">
-         <MdOutlineLyrics className=' hover:text-orange-600' title='Create song'/>
+          <span className='flex items-baseline  hover:text-orange-600' title='Create song'>
+              <MdOutlineLyrics/>
+              <TiPlus  className="-m-2" size={20}/>
+          </span>
         </Link>
 
         <Link to="/add-item/lyrics">
